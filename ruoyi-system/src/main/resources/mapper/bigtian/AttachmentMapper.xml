@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.bigtian.mapper.AttachmentMapper">
+
+    <resultMap type="Attachment" id="AttachmentResult">
+        <result property="id"    column="id"    />
+        <result property="busiId"    column="busi_id"    />
+        <result property="url"    column="url"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="type"    column="type"    />
+        <result property="sourceName"    column="source_name"    />
+    </resultMap>
+
+    <sql id="selectAttachmentVo">
+        select id, busi_id, url, create_by, create_time, update_by, update_time,source_name,type from t_attachment
+    </sql>
+
+    <select id="selectAttachmentList" parameterType="Attachment" resultMap="AttachmentResult">
+        <include refid="selectAttachmentVo"/>
+        <where>
+            <if test="busiId != null "> and busi_id = #{busiId}</if>
+            <if test="url != null  and url != ''"> and url = #{url}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectAttachmentById" parameterType="Long" resultMap="AttachmentResult">
+        <include refid="selectAttachmentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAttachment" parameterType="Attachment">
+        insert into t_attachment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="busiId != null">busi_id,</if>
+            <if test="url != null">url,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="sourceName != null ">source_name,</if>
+            <if test="type != null ">type,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="busiId != null">#{busiId},</if>
+            <if test="url != null">#{url},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="sourceName!=null">#{sourceName},</if>
+            <if test="type!=null">#{type},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAttachment" parameterType="Attachment">
+        update t_attachment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="busiId != null">busi_id = #{busiId},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="sourceName != null">source_name = #{sourceName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAttachmentById" parameterType="Long">
+        delete from t_attachment where id = #{id}
+    </delete>
+
+    <delete id="deleteAttachmentByIds" parameterType="String">
+        delete from t_attachment where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

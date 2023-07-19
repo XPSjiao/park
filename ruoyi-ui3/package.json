@@ -1,0 +1,59 @@
+{
+  "name": "ruoyi",
+  "version": "3.8.2",
+  "description": "实时车位管理系统",
+  "author": "若依",
+  "scripts": {
+    "build:prod": "vite build",
+    "build:stage": "vite build --mode staging",
+    "dev": "vite",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps",
+    "preview": "vite preview"
+  },
+  "main": "background.js",
+  "dependencies": {
+    "@element-plus/icons-vue": "1.1.4",
+    "@highlightjs/vue-plugin": "^2.1.0",
+    "@vue/cli-service": "^5.0.4",
+    "@vueup/vue-quill": "^1.0.0-beta.8",
+    "autoprefixer": "^10.4.7",
+    "axios": "0.26.1",
+    "echarts": "5.3.2",
+    "element-plus": "2.1.8",
+    "file-saver": "2.0.5",
+    "fuse.js": "6.5.3",
+    "highlight.js": "^11.5.1",
+    "js-cookie": "3.0.1",
+    "jsencrypt": "3.2.1",
+    "nprogress": "0.2.0",
+    "postcss": "^8.4.14",
+    "sass-loader": "^13.0.0",
+    "tailwindcss": "^3.0.24",
+    "vue": "3.2.31",
+    "vue-cropper": "1.0.3",
+    "vue-router": "4.0.14",
+    "vuex": "4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "2.3.1",
+    "@vue/compiler-sfc": "3.2.31",
+    "electron": "^19.0.1",
+    "electron-devtools-installer": "^3.2.0",
+    "sass": "1.50.0",
+    "unplugin-auto-import": "0.6.9",
+    "vite": "2.6.14",
+    "vite-plugin-compression": "0.5.1",
+    "vite-plugin-svg-icons": "1.0.5",
+    "vite-plugin-vue-setup-extend": "0.4.0",
+    "vue-cli-plugin-electron-builder": "~2.1.1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/y_project/RuoYi-Vue.git"
+  },
+  "__npminstall_done": false
+}

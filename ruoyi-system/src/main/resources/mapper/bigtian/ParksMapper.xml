@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.bigtian.mapper.ParksMapper">
+    
+    <resultMap type="Parks" id="ParksResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="linkman"    column="linkman"    />
+        <result property="phone"    column="phone"    />
+        <result property="vehicleNum"    column="vehicle_num"    />
+        <result property="residueVehicleNum"    column="residue_vehicle_num"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="tags"    column="tags"    />
+        <result property="rates"    column="rates"    />
+        <result property="state"    column="state"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="pointName"    column="point_name"    />
+        <result property="pointDetail"    column="point_detail"    />
+        <result property="remark"    column="remark"    />
+        <result property="textContent"    column="text_content"    />
+        <result property="price"    column="price"    />
+    </resultMap>
+
+    <sql id="selectParksVo">
+        select id, name, linkman, phone, vehicle_num, residue_vehicle_num, longitude, latitude, tags, rates, state, create_by, create_time, update_by, update_time, point_name, point_detail,remark,text_content,price from t_parks
+    </sql>
+
+    <select id="selectParksList" parameterType="Parks" resultMap="ParksResult">
+        <include refid="selectParksVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="linkman != null  and linkman != ''"> and linkman = #{linkman}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="pointName != null  and pointName != ''"> and point_name like concat('%', #{pointName}, '%')</if>
+            <if test="pointDetail != null  and pointDetail != ''"> and point_detail = #{pointDetail}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+        </where>
+        order by state  desc , create_time desc
+    </select>
+    
+    <select id="selectParksById" parameterType="Long" resultMap="ParksResult">
+        <include refid="selectParksVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertParks" parameterType="Parks">
+        insert into t_parks
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="linkman != null">linkman,</if>
+            <if test="phone != null">phone,</if>
+            <if test="vehicleNum != null">vehicle_num,</if>
+            <if test="residueVehicleNum != null">residue_vehicle_num,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="tags != null">tags,</if>
+            <if test="rates != null">rates,</if>
+            <if test="state != null">state,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="pointName != null">point_name,</if>
+            <if test="pointDetail != null">point_detail,</if>
+            <if test="textContent != null">text_content,</if>
+            <if test="price != null">price</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="linkman != null">#{linkman},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="vehicleNum != null">#{vehicleNum},</if>
+            <if test="residueVehicleNum != null">#{residueVehicleNum},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="tags != null">#{tags},</if>
+            <if test="rates != null">#{rates},</if>
+            <if test="state != null">#{state},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="pointName != null">#{pointName},</if>
+            <if test="pointDetail != null">#{pointDetail},</if>
+            <if test="textContent != null">#{textContent},</if>
+            <if test="price != null">#{price}</if>
+         </trim>
+    </insert>
+
+    <update id="updateParks" parameterType="Parks">
+        update t_parks
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="linkman != null">linkman = #{linkman},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="vehicleNum != null">vehicle_num = #{vehicleNum},</if>
+            <if test="residueVehicleNum != null">residue_vehicle_num = #{residueVehicleNum},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="tags != null">tags = #{tags},</if>
+            <if test="rates != null">rates = #{rates},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="pointName != null">point_name = #{pointName},</if>
+            <if test="pointDetail != null">point_detail = #{pointDetail},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="textContent != null">text_content = #{textContent},</if>
+            <if test="price != null">price = #{price}</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteParksById" parameterType="Long">
+        delete from t_parks where id = #{id}
+    </delete>
+
+    <delete id="deleteParksByIds" parameterType="String">
+        delete from t_parks where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

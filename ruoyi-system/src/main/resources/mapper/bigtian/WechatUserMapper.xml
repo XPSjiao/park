@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.bigtian.mapper.WechatUserMapper">
+    
+    <resultMap type="WechatUser" id="WechatUserResult">
+        <result property="id"    column="id"    />
+        <result property="openId"    column="open_id"    />
+        <result property="nickName"    column="nick_name"    />
+        <result property="gender"    column="gender"    />
+        <result property="avatarUrl"    column="avatar_url"    />
+        <result property="type"    column="type"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWechatUserVo">
+        select id, open_id, nick_name, gender, avatar_url, type, create_by, update_by, create_time, update_time from t_wechat_user
+    </sql>
+
+    <select id="selectWechatUserList" parameterType="WechatUser" resultMap="WechatUserResult">
+        <include refid="selectWechatUserVo"/>
+        <where>  
+            <if test="openId != null  and openId != ''"> and open_id = #{openId}</if>
+            <if test="nickName != null  and nickName != ''"> and nick_name like concat('%', #{nickName}, '%')</if>
+            <if test="gender != null "> and gender = #{gender}</if>
+            <if test="avatarUrl != null  and avatarUrl != ''"> and avatar_url = #{avatarUrl}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectWechatUserById" parameterType="Long" resultMap="WechatUserResult">
+        <include refid="selectWechatUserVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWechatUser" parameterType="WechatUser">
+        insert into t_wechat_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="openId != null and openId != ''">open_id,</if>
+            <if test="nickName != null">nick_name,</if>
+            <if test="gender != null">gender,</if>
+            <if test="avatarUrl != null">avatar_url,</if>
+            <if test="type != null">type,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="openId != null and openId != ''">#{openId},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="avatarUrl != null">#{avatarUrl},</if>
+            <if test="type != null">#{type},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWechatUser" parameterType="WechatUser">
+        update t_wechat_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="openId != null and openId != ''">open_id = #{openId},</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWechatUserById" parameterType="Long">
+        delete from t_wechat_user where id = #{id}
+    </delete>
+
+    <delete id="deleteWechatUserByIds" parameterType="String">
+        delete from t_wechat_user where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
