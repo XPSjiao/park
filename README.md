@@ -7,6 +7,7 @@ SpringBoot  vue项目
 #### 项目截图自己看吧
 
 jdk17  mysql数据库 redis啥的都用了
+需要技术支持可以+v:**18012275669** **看心情决定是否有偿提供技术支持**
 
 ![image-20230719170412264](https://soft2176-use.oss-cn-hangzhou.aliyuncs.com/md-pic/image-20230719170412264.png)
 
